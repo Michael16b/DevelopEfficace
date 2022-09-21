@@ -16,7 +16,30 @@ public class Bag<E> extends AbstractCollection<E> {
 	public int size() {
 		return this.size;
 	}
-	//c
+	
+	@Override
+	public boolean add(E data) {
+		if(this.size == Integer.MAX_VALUE) return false;
+		else {
+			int index = (int) (Math.random() * (this.size + 1));
+			Element current = getElement(index);
+			current.next = new Element(data, current.next.next);
+		}
+		return true;
+		
+	}
+	
+	private Element getElement(int index)  throws IndexOutOfBoundsException {
+		if (index < 0 || index > this.size) throw new IndexOutOfBoundsException();
+		Element e = this.sentinel;
+		for (int i = 0; i<index; i++) {
+				e = e.next;
+			}
+		if (e == null) throw new NullPointerException();
+		
+		return e;
+	}
+
 	
 	
 	public Iterator<E> iterator() {
@@ -56,6 +79,13 @@ public class Bag<E> extends AbstractCollection<E> {
 				data = this.current.data;
 			}
 			return data;
+		}
+		
+		@Override
+		public void remove() {
+			this.current = this.pastCurrent;
+			this.current.next = this.current.next.next;
+			Bag.this.size--;
 		}
 		
 	}

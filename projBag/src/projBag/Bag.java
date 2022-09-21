@@ -16,6 +16,7 @@ public class Bag<E> extends AbstractCollection<E> {
 	public int size() {
 		return this.size;
 	}
+	//c
 	
 	
 	public Iterator<E> iterator() {

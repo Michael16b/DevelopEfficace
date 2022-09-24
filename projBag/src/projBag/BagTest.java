@@ -7,23 +7,35 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BagTest {
-
+	// Sonarlint --> java:S2293 : The diamond operator ("<>") should be used 
+	Bag<Object> bag = new Bag<>();
+	
 	@Before
 	public void setUp() throws Exception {
+		bag = new Bag<>();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		bag = new Bag<>();
+		bag = null;
 	}
 
 	@Test
 	public void testSize() {
-		fail("Not yet implemented");
+		bag = new Bag<>();
+		
+		 if (!bag.isEmpty()) {
+			 fail("testSize isn't implemented correctly");
+		 }
 	}
 
 	@Test
 	public void testBag() {
-		fail("Not yet implemented");
+		bag = new Bag<>();
+		if(bag.size() != 0) {
+			fail("testBag isn't implemented correctly");
+		}
 	}
 
 	@Test
@@ -48,7 +60,8 @@ public class BagTest {
 
 	@Test
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		bag = new Bag<>();
+		if (!bag.isEmpty()) fail("testIsEmpty isn't implemented correctly");
 	}
 
 	@Test

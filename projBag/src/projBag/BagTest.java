@@ -104,5 +104,86 @@ public class BagTest {
 			fail("testIteratorRemove isn't implemented correctly");
 		}
 	}
+	
+	@Test
+	public void testItrHasNext() {
+			fail("testItrHasNext isn't implemented correctly");
+	}
+	
+	@Test
+	public void testItrNext() {
+			fail("testItrNext isn't implemented correctly");
+	}
+	
+
+	@Test
+	public void testAbstractCollectionToString() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollection() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionIterator() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionIsEmpty() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionContains() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionToArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionToArrayTArray() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionAddE() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionRemove() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionContainsAll() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionAddAll() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionRemoveAll() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionRetainAll() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAbstractCollectionClear() {
+		fail("Not yet implemented");
+	}
 
 }

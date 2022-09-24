@@ -45,6 +45,7 @@ public class Bag<E> extends AbstractCollection<E> {
 	public Bag(Collection<E> c) {
 		this.sentinel = new Element(null,this.sentinel);
 		this.size = 0;
+		
 		for (E element : c) {
 			this.add(element);
 		}

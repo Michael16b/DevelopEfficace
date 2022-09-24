@@ -1,14 +1,17 @@
 package projBag;
 
+
 import java.util.AbstractCollection;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Bag<E> extends AbstractCollection<E> { 
 	private int size;
-	private Bag<E>.Element sentinel;
+	private Element sentinel;
 	
 	public Bag() {
-		this.sentinel = new Element(null,null);
+		this.sentinel = new Element(null,this.sentinel);
 		this.size = 0;
 	}
 	
@@ -17,25 +20,47 @@ public class Bag<E> extends AbstractCollection<E> {
 		return this.size;
 	}
 	
-	@Override
 	public boolean add(E data) {
-		if(this.size == Integer.MAX_VALUE) return false;
-		else {
-			int index = (int) (Math.random() * (this.size + 1));
-			Element current = getElement(index);
-			current.next = new Element(data, current.next.next);
+		if(this.size >= Integer.MAX_VALUE) {
+			return false;
 		}
+		
+		// java:S2140 - > Methods of "Random" that return floating point values should not be used in random integer generation
+		int index = (int) (Math.random() * (this.size + 1));
+		Element current = getElement(index);
+		
+		if (size == 0) {
+			current = new Element(data, this.sentinel);
+			this.sentinel.next = current;
+		} else {
+			Element newCurrentNext = current.next;
+			current.next = new Element(data, newCurrentNext);
+		}
+		this.size++;
 		return true;
 		
 	}
 	
-	private Element getElement(int index)  throws IndexOutOfBoundsException {
+	
+	public Bag(Collection<E> c) {
+		this.sentinel = new Element(null,this.sentinel);
+		this.size = 0;
+		for (E element : c) {
+			this.add(element);
+		}
+		
+	}
+	
+	
+
+	
+	private Element getElement(int index)  throws IndexOutOfBoundsException,NullPointerException {
 		if (index < 0 || index > this.size) throw new IndexOutOfBoundsException();
 		Element e = this.sentinel;
 		for (int i = 0; i<index; i++) {
 				e = e.next;
 			}
-		if (e == null) throw new NullPointerException();
+		if (e == null && e != this.sentinel) throw new NullPointerException();
 		
 		return e;
 	}
@@ -47,8 +72,8 @@ public class Bag<E> extends AbstractCollection<E> {
  }
 	
 	private class Element {
-		Element next; 
-		E data; 
+		private Element next; 
+		private E data; 
 		
 		Element (E data, Element next ) {
 			this.data = data;
@@ -57,8 +82,8 @@ public class Bag<E> extends AbstractCollection<E> {
 	}
 	
 	private class Itr implements Iterator<E> {
-		Element current; 
-		Element pastCurrent;
+		private Element current; 
+		private Element pastCurrent;
 		
 		
 		Itr() {
@@ -69,15 +94,16 @@ public class Bag<E> extends AbstractCollection<E> {
 		public boolean hasNext() {
 			return (this.current.next != Bag.this.sentinel);
 		}
-
+		
+		// Sonarlint : java:S2272 -> "Iterator.next()" methods should throw "NoSuchElementException"
 		@Override
-		public E next() {
+		public E next() throws NoSuchElementException {
 			E data = null;
 			if (hasNext()) {
 				this.pastCurrent = this.current;
 				this.current = this.current.next;
 				data = this.current.data;
-			}
+			} else throw new NoSuchElementException();
 			return data;
 		}
 		

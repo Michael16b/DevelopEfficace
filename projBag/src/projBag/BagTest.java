@@ -13,8 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BagTest {
+	private static final String FAIL_ANSWER = null;
 	// Sonarlint --> java:S2293 : The diamond operator ("<>") should be used 
-	Bag<Object> bag = new Bag<Object>();
+	Bag<Object> bag = new Bag<>();
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,6 +33,7 @@ public class BagTest {
 		System.out.println("testSize");
 		bag = new Bag<>();
 		 if (!bag.isEmpty()) {
+			 // Sonarlint -> Assertions should not be used in production code (java:S5960)
 			 fail("testSize isn't implemented correctly");
 		 }
 		 bag.add("5");
@@ -106,6 +108,7 @@ public class BagTest {
 		System.out.println("testItrRemove");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
+		final String FAIL_ANSWER = "testItrRemove isn't implemented correctly";
 		
 		
 		for (int i = 0; i < 10; i++) {
@@ -117,17 +120,18 @@ public class BagTest {
 		for (int i = 0; i < 10; i++) { 
 			itr.remove();
 			if (bag.size() != 10-(i+1)) {
-				fail("testItrRemove isn't implemented correctly");
+				// Sonarlint : String literals should not be duplicated (java:S1192)
+				fail(FAIL_ANSWER);
 			}
 		}
 		
 		try {
 			itr.remove();
-			 fail("testItrRemove isn't implemented correctly");
+			 fail(FAIL_ANSWER);
 		    } catch(NoSuchElementException e) {
 		    	NoSuchElementException wantedError = new NoSuchElementException("The iterator doesn't have an element to remove");
 		    	if (!e.getMessage().equals(wantedError.getMessage())) {
-		    		 fail("testItrRemove isn't implemented correctly");
+		    		 fail(FAIL_ANSWER);
 		    	 }
 		    	 
 		    }
@@ -140,7 +144,7 @@ public class BagTest {
 		System.out.println("testItrHasNext");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
-		
+		final String FAIL_ANSWER = "testItrHasNext isn't implemented correctly";
 		
 		for (int i = 0; i < 10; i++) {
 			bag.add(i);
@@ -148,13 +152,13 @@ public class BagTest {
 		
 		for (int i = 0; i < 10; i++) {
 			if (!itr.hasNext()) {
-				fail("testItrHasNext isn't implemented correctly");
+				fail(FAIL_ANSWER);
 				} else {
 				itr.next();
 			}
 		}
 		if (itr.hasNext()) {
-			fail("testItrHasNext isn't implemented correctly");
+			fail(FAIL_ANSWER);
 		}
 		System.out.println("Test : Ok");
 	}
@@ -175,10 +179,10 @@ public class BagTest {
 		}
 		try {
 			itr.next();
-			 fail("testItrHasNext isn't implemented correctly");
+			 fail(FAIL_ANSWER);
 		    } catch(NoSuchElementException e) {
 		    	if (e.getMessage() != null) {
-		    		fail("testItrHasNext isn't implemented correctly");
+		    		fail(FAIL_ANSWER);
 		    	}
 		    	 
 		    }
@@ -261,24 +265,27 @@ public class BagTest {
 	public void testIteratorNext() {
 		System.out.println("testIteratorNext");
 		AbstractCollection<Object> ac = new ArrayList<>();
+		final String FAIL_ANSWER = "testIteratorNext isn't implemented correctly";
+		
+		
 		for (int i = 0; i < 10; i++) {
 			ac.add(i);
 		}
 		Iterator<Object> itr = ac.iterator();
 		for (int i = 0; i < 10; i++) {
 			if (itr.next() == null) {
-				fail("testIteratorNext isn't implemented correctly");
+				fail(FAIL_ANSWER);
 			}
 		}
 		try {
 			itr.next();
-			 fail("testIteratorNext isn't implemented correctly");
+			 fail(FAIL_ANSWER);
 		    } catch(NoSuchElementException e) {
 
 		    	// Sonarlint : java:S4973
 		    	// Sonarlint : Silly equality checks should not be made (java:S2159)
 		    	if (e.getMessage() != null) {
-		    		fail("testIteratorNext isn't implemented correctly");
+		    		fail(FAIL_ANSWER);
 		    	}
 		    	 
 		    }

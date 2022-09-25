@@ -101,11 +101,27 @@ public class BagTest {
 			bag.add(i);
 		}
 		
-		itr.remove();
 		
-		if (bag.size() != 9) {
-			fail("testIteratorRemove isn't implemented correctly");
+		
+		for (int i = 0; i < 10; i++) { 
+			itr.remove();
+			if (bag.size() != 10-(i+1)) {
+				fail("testItrRemove isn't implemented correctly");
+			}
 		}
+		
+		try {
+			itr.remove();
+			 fail("testItrRemove isn't implemented correctly");
+		    } catch(NoSuchElementException e) {
+		    	NoSuchElementException wantedError = new NoSuchElementException("The iterator doesn't have an element to remove");
+		    	if (!e.getMessage().equals(wantedError.getMessage())) {
+		    		 fail("testItrRemove isn't implemented correctly");
+		    	 }
+		    	 
+		    }
+		
+		
 	}
 	
 	@Test
@@ -258,6 +274,9 @@ public class BagTest {
 		if (!ac.isEmpty()) {
 			fail("testIteratorRemove isn't implemented correctly");
 		}
+		
+
+		
 	}
 
 

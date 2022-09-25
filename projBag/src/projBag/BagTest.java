@@ -66,12 +66,13 @@ public class BagTest {
 	@Test
 	public void testAddE() {
 		bag = new Bag<>();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 100; i++) {
 			bag.add(i);
 		}
-		if (bag.size() != 10) {
+		if (bag.size() != 100) {
 			fail("testAddE isn't implemented correctly");
 		}
+		
 	}
 
 	@Test
@@ -109,12 +110,48 @@ public class BagTest {
 	
 	@Test
 	public void testItrHasNext() {
+		bag = new Bag<>();
+		Iterator<Object> itr = bag.iterator();
+		
+		
+		for (int i = 0; i < 10; i++) {
+			bag.add(i);
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			if (!itr.hasNext()) {
+				fail("testItrHasNext isn't implemented correctly");
+				} else {
+				itr.next();
+			}
+		}
+		if (itr.hasNext()) {
 			fail("testItrHasNext isn't implemented correctly");
+		}
 	}
 	
 	@Test
 	public void testItrNext() {
-			fail("testItrNext isn't implemented correctly");
+		bag = new Bag<>();
+		Iterator<Object> itr = bag.iterator();
+		
+		
+		for (int i = 0; i < 100; i++) {
+			bag.add(i);
+		}
+		
+		for (int i = 0; i < 100; i++) {
+			itr.next();
+		}
+		try {
+			itr.next();
+			 fail("testItrHasNext isn't implemented correctly");
+		    } catch(NoSuchElementException e) {
+		    	if (e.getMessage() != null) {
+		    		fail("testItrHasNext isn't implemented correctly");
+		    	}
+		    	 
+		    }
 	}
 	
 

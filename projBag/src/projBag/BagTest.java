@@ -29,6 +29,7 @@ public class BagTest {
 
 	@Test
 	public void testSize() {
+		System.out.println("testSize");
 		bag = new Bag<>();
 		 if (!bag.isEmpty()) {
 			 fail("testSize isn't implemented correctly");
@@ -37,10 +38,12 @@ public class BagTest {
 		 if (bag.isEmpty()) {
 			 fail("testSize isn't implemented correctly");
 		 }
+		 System.out.println("Test : Ok");
 	}
 
 	@Test
 	public void testBag() {
+		System.out.println("testBag");
 		bag = new Bag<>();
 		// Sonarlint : Collection.isEmpty() should be used to test for emptiness (java:S1155)
 		if(!bag.isEmpty()) {
@@ -60,11 +63,13 @@ public class BagTest {
 		if (bag.isEmpty()) {
 			fail("testBag isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 			
 	}
 
 	@Test
 	public void testAddE() {
+		System.out.println("testAddE");
 		bag = new Bag<>();
 		for (int i = 0; i < 100; i++) {
 			bag.add(i);
@@ -72,27 +77,33 @@ public class BagTest {
 		if (bag.size() != 100) {
 			fail("testAddE isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 		
 	}
 
 	@Test
 	public void testIterator() {
+		System.out.println("testIterator");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
 		
 		if (!itr.hasNext()) {
 			fail("testIterator isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 	}
 
 	@Test
 	public void testIsEmpty() {
+		System.out.println("testIsEmpty");
 		bag = new Bag<>();
 		if (!bag.isEmpty()) fail("testIsEmpty isn't implemented correctly");
+		System.out.println("Test : Ok");
 	}
 
 	@Test
 	public void testItrRemove() {
+		System.out.println("testItrRemove");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
 		
@@ -121,11 +132,12 @@ public class BagTest {
 		    	 
 		    }
 		
-		
+		System.out.println("Test : Ok");
 	}
 	
 	@Test
 	public void testItrHasNext() {
+		System.out.println("testItrHasNext");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
 		
@@ -144,10 +156,12 @@ public class BagTest {
 		if (itr.hasNext()) {
 			fail("testItrHasNext isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 	}
 	
 	@Test
 	public void testItrNext() {
+		System.out.println("testItrNext");
 		bag = new Bag<>();
 		Iterator<Object> itr = bag.iterator();
 		
@@ -168,19 +182,23 @@ public class BagTest {
 		    	}
 		    	 
 		    }
+		System.out.println("Test : Ok");
 	}
 	
 
 	@Test
 	public void testAbstractCollection() {
+		System.out.println("testAbstractCollection");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		if (!ac.isEmpty()) {
 			fail("testAbstractCollection isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 	}
 
 	@Test
 	public void testAbstractCollectionIterator() {
+		System.out.println("testAbstractCollectionIterator");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		Iterator<Object> itr = ac.iterator();
 		
@@ -196,22 +214,26 @@ public class BagTest {
 		    	}
 		    	 
 		    }
+		System.out.println("Test : Ok");
 	}
 
 
 	@Test
 	public void testAbstractCollectionAddE() {
+		System.out.println("testAbstractCollectionAddE");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		ac.add("5");
 		// Sonarlint : Silly equality checks should not be made (java:S2159)
 		// Sonarlint : Strings and Boxed types should be compared using "equals()" (java:S4973)
 		if (!ac.toArray()[0].toString().equals("5") && ac.size() != 1) {
 			fail("testAbstractCollectionAddE isn't implemented correctly");
-		}
+			}
+		System.out.println("Test : Ok");
 		}
 
 	@Test
 	public void testAbstractCollectionRemove() {
+		System.out.println("testAbstractCollectionRemove");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		ac.add("5");
 		ac.add("10");
@@ -219,10 +241,12 @@ public class BagTest {
 		if (!ac.toArray()[0].toString().equals("5") && ac.size() != 1) {
 			fail("testAbstractCollectionRemove isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 	}
 	
 	@Test
 	public void testIteratorHasNext() {
+		System.out.println("testIteratorHasNext");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		Iterator<Object> itr = ac.iterator();
 		ac.add("5");
@@ -230,10 +254,12 @@ public class BagTest {
 		if (!itr.hasNext()) {
 			fail("testIteratorhasNext isn't implemented correctly");
 		}
+		System.out.println("Test : Ok");
 	}
 	
 	@Test
 	public void testIteratorNext() {
+		System.out.println("testIteratorNext");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			ac.add(i);
@@ -256,11 +282,12 @@ public class BagTest {
 		    	}
 		    	 
 		    }
-
+		System.out.println("Test : Ok");
 	}
 	
 	@Test
 	public void testIteratorRemove() {
+		System.out.println("testIteratorRemove");
 		AbstractCollection<Object> ac = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			ac.add(i);
@@ -275,7 +302,7 @@ public class BagTest {
 			fail("testIteratorRemove isn't implemented correctly");
 		}
 		
-
+		System.out.println("Test : Ok");
 		
 	}
 

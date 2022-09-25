@@ -20,6 +20,7 @@ public class Bag<E> extends AbstractCollection<E> {
 		return this.size;
 	}
 	
+	@Override
 	public boolean add(E data) {
 		if(this.size >= Integer.MAX_VALUE) {
 			return false;

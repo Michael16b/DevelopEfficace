@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 /***
  * 
- * @author Micha�l BESILY
+ * @author Michael BESILY
  *
  */
 

@@ -1,7 +1,5 @@
 package datastruct;
 
-import java.util.Objects;
-
 public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> {
 
 	private Node root = null;
@@ -13,62 +11,43 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
 
     @Override
     public T select(E key) {
-        if (root == null) {
-            return null;
+        if(key == null) {
+            throw new IllegalArgumentException("La clï¿½e est null");
         }
-        Node theNode = findNode(root,key);
-        if (theNode != null) {
-            if (theNode.key == key) {
-                return theNode.theValue;
-            } else {
-                return null;
-            }
+        Node n = findNode(root,key);
+        T ret;
+        if(n==null) {
+            ret=null;
         } else {
-            return null;
+            ret = n.theValue;
         }
+        return ret;
     }
 
-
-	private Node findNode (Node theNode, E key) {
-        if (key.equals(theNode.key)) {
-            return theNode;
+    private Node findNode ( Node theNode, E key ) {
+        if(key == null) {
+            throw new IllegalArgumentException("La clï¿½e est null");
         }
-        if (theNode.lSon != null && theNode.rSon != null) {
-            return null;
-        }
-
-        if (theNode.lSon != null) {
-            if (key.equals(theNode.lSon.key)) {
-                return findNode(theNode.lSon, key);
-            }
-        }
-        if (theNode.rSon != null) {
-            if (key.equals(theNode.rSon.key)) {
-                return findNode(theNode.rSon, key);
-            }
-        }
-
-        if (theNode.lSon != null && theNode.rSon != null) {
-            if (key.compareTo(theNode.lSon.key) > 0 && key.compareTo(theNode.rSon.key) < 0) {
-                return findNode(theNode.lSon, key);
-
+        Node n = null;
+        if(theNode != null) {
+            if(theNode.key == key) {
+                n=theNode;
+            } else if (theNode.key.compareTo(key)<0){
+                n=findNode(theNode.rSon,key);
             } else {
-                if (key.compareTo(theNode.lSon.key) > 0 && key.compareTo(theNode.rSon.key) > 0) {
-                    if (theNode.lSon.key.compareTo(theNode.rSon.key) > 0) {
-                        return findNode(theNode.lSon, key);
-                    } else {
-                        return findNode(theNode.rSon, key);
-                    }
-                }
+                n=findNode(theNode.lSon,key);
             }
         }
-        return null;
+        return n;
     }
 
 
 
     @Override
-    public boolean insert(E key, T data) {
+    public boolean insert(E key, T data) throws IllegalArgumentException {
+        if(key == null) {
+            throw new IllegalArgumentException("La cle est null");
+        }
     	boolean ans = false;
     	if (root == null) {
     		root = new Node(data,key);
@@ -89,46 +68,101 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
     }
     
 	private Node seekFather (E key) {
-    	Node theNode = root;
-    	while (theNode.rSon != null && theNode.lSon != null) {
-    		if ((theNode.lSon.key.compareTo(key) > 0 && theNode.rSon.key.compareTo(key) > 0) || (theNode.lSon.key.compareTo(key) < 0 && theNode.rSon.key.compareTo(key) < 0)) {
-    			if (theNode.rSon.key.compareTo(theNode.lSon.key) > 0) {
-                    if (theNode.rSon.key.compareTo(key) == 0) {
-                        theNode = new Node(null, key);
-                    } else {
-                        theNode = theNode.rSon;
-                    }
+        Node theNode = root;
+        while( (theNode.rSon != null || theNode.lSon != null) && theNode.key != key) {
+            if (theNode.key.compareTo(key) < 0 ) {
+                if (theNode.rSon == null) {
+                    break;
                 } else {
-                    if (theNode.lSon.key.compareTo(key) == 0) {
-                        theNode = new Node(null, key);
-                    } else {
-    				    theNode = theNode.lSon;
-                    }
-    			}
-    		}
-    		else if (theNode.lSon.key.compareTo(key) > 0 && theNode.rSon.key.compareTo(key) < 0) {
-    			theNode = theNode.lSon;
-    		} else {
-    			theNode = theNode.rSon;
-    		}
-    	}
-        if (theNode != null) {
-            if (theNode.key.compareTo(key) == 0) {
-                theNode = new Node(null, key);
+                    theNode = theNode.rSon;
+                }
+            } else {
+                if (theNode.lSon == null) {
+                    break;
+                } else {
+                    theNode = theNode.lSon;
+                }
             }
         }
-    	return theNode;
-    	
+        if (theNode.key == key) {
+            theNode.theValue = null;
+        }
+        return theNode;
     } 
-    
+
+
     @Override
     public boolean delete (E key) {
         if (root == null) {
             return false;
         }
+        boolean result = false;
         Node theNode = findNode(this.root,key);
-        theNode = null;
-        return true;
+        if (theNode != root) {
+            if (theNode.lSon == null && theNode.rSon == null) {
+                if (theNode.father.lSon == theNode) {
+                    theNode.father.lSon = null;
+                } else {
+                    theNode.father.rSon = null;
+                }
+                result = true;
+            } else if(theNode.lSon == null || theNode.rSon == null) {
+                if (theNode.lSon != null) {
+                    if (theNode.father.lSon == theNode) {
+                        theNode.father.lSon = theNode.rSon;
+                    } else {
+                        theNode.father.rSon = theNode.rSon;
+                    }
+                } else {
+                    if (theNode.father.lSon == theNode) {
+                        theNode.father.lSon = theNode.lSon;
+                    } else {
+                        theNode.father.rSon = theNode.lSon;
+                    }
+                    result = true;
+                }
+
+            } else {
+                Node theNode2 = theNode.rSon;
+                while (theNode2.lSon != null) {
+                    theNode2 = theNode2.lSon;
+                }
+                theNode.key = theNode2.key;
+                theNode.theValue = theNode2.theValue;
+                if (theNode2.father.lSon == theNode2) {
+                    theNode2.father.lSon = theNode2.rSon;
+                } else {
+                    theNode2.father.rSon = theNode2.rSon;
+                }
+                result = true;
+            }
+        } else {
+            if (root.lSon == null && root.rSon == null) {
+                root = null;
+                result = true;
+            } else if (root.lSon == null || root.rSon == null) {
+                if (root.lSon != null) {
+                    root = root.lSon;
+                } else {
+                    root = root.rSon;
+                }
+                result = true;
+            } else {
+                Node theNode2 = root.rSon;
+                while (theNode2.lSon != null) {
+                    theNode2 = theNode2.lSon;
+                }
+                root.key = theNode2.key;
+                root.theValue = theNode2.theValue;
+                if (theNode2.father.lSon == theNode2) {
+                    theNode2.father.lSon = theNode2.rSon;
+                } else {
+                    theNode2.father.rSon = theNode2.rSon;
+                }
+                result = true;
+            }
+        }
+        return result;
     }
     
     

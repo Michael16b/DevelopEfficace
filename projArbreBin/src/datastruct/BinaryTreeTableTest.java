@@ -49,6 +49,7 @@ public class BinaryTreeTableTest {
 		if (tree.insert(1, "a")) {
 			fail("testInsert isn't implemented correctly");
 		}
+		assertThrows(IllegalArgumentException.class, () -> tree.insert(null, "a"));
 	}
 
 	@Test
@@ -57,7 +58,14 @@ public class BinaryTreeTableTest {
 		for (int i = 0; i < 10; i++) {
 			tree.insert(i, "test" + i);
 		}
-		//fail("treeDelete isn't implemented correctly");
+		for (int i = 0; i < 10; i++) {
+			if (!tree.delete(i)) {
+				fail("testDelete isn't implemented correctly");
+			}
+		}
+		if (tree.delete(1)) {
+			fail("testDelete isn't implemented correctly");
+		}
 	}
 
 	@Test

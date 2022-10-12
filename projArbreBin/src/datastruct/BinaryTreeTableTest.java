@@ -20,9 +20,7 @@ public class BinaryTreeTableTest {
 	public void testBinaryTreeTable() {
 		// Sonarlint -> Instance methods should not write to "static" fields (java:S2696)
 		tree = new BinaryTreeTable<>();
-		if (tree.select(null) != null) {
-			fail("testBinaryTreeTable isn't implemented correctly");
-		}
+		assertThrows(IllegalArgumentException.class, () -> tree.select(null));
 	}
 
 	@Test

@@ -164,17 +164,51 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
         }
         return result;
     }
-    
-    
-    public BinaryTreeTable<E, T> clone() {
-    	return this;
+
+    @Override
+    public String toString() {
+        String ret = this.getInfo(this.root) ;
+        return ret;
     }
-    
-    @SuppressWarnings("unused")
+
+    private String getInfo ( Node theN ) {
+        String infosLNode, infosRNode, infosNode ;
+        String ret ;
+        if ( theN != null ) {
+            infosLNode = getInfo ( theN.lSon ) ;
+            infosRNode = getInfo ( theN.rSon ) ;
+            infosNode = new String ( "\nclé=" + theN.key.toString() + "\tdata=" +
+                    theN.theValue.toString() ) ;
+            ret = new String ( infosLNode + infosNode + infosRNode ) ;
+        }
+        else ret = new String ("") ;
+        return ret ;
+    }
+
+    // Utilisez computeClone() pour copier les noeuds de l'arbre
+    public BinaryTreeTable<E, T> clone() {
+        BinaryTreeTable<E, T> ret = new BinaryTreeTable<E, T>();
+        computeClone(this.root, ret.root);
+        return ret;
+    }
+
 	private void computeClone(Node nodeToCopy, Node newFather) {
-        T theValue = null ; 
-        E key = null ;
-    	Node node = new Node(theValue, key);
+        if (nodeToCopy != null) {
+            Node newNode = new Node(nodeToCopy.theValue, nodeToCopy.key);
+            newNode.father = newFather;
+            if (nodeToCopy.father != null) {
+                if (nodeToCopy.father.lSon == nodeToCopy) {
+                    newFather.lSon = newNode;
+                } else {
+                    newFather.rSon = newNode;
+                }
+            }
+            if (nodeToCopy.lSon != null || nodeToCopy.rSon != null) {
+                computeClone(nodeToCopy.lSon, newNode);
+                computeClone(nodeToCopy.rSon, newNode);
+            }
+        }
+
     }
     
     public void showTree() {

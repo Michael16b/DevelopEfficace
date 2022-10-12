@@ -65,10 +65,37 @@ public class BinaryTreeTableTest {
 			fail("testDelete isn't implemented correctly");
 		}
 	}
+	@Test
+	public void testToString() {
+		tree = new BinaryTreeTable<>();
+		for (int i = 0; i < 10; i++) {
+			tree.insert(i, "test" + i);
+		}
+
+		StringBuilder expected = new StringBuilder("");
+
+		for (int i = 0; i < 10; i++) {
+			expected.append("\nclé=").append(i).append("\tdata=test").append(i);
+		}
+
+		if (!tree.toString().equals(expected.toString())) {
+			fail("testToString isn't implemented correctly");
+		}
+	}
 
 	@Test
 	public void testClone() {
-		fail("Not yet implemented");
+		tree = new BinaryTreeTable<>();
+		for (int i = 0; i < 10; i++) {
+			tree.insert(i, "test" + i);
+		}
+		BinaryTreeTable<Integer, String> tree2 = tree.clone();
+		System.out.println(tree2);
+		for (int i = 0; i < 10; i++) {
+			if (!tree2.select(i).equals(tree.select(i))) {
+				fail("testClone isn't implemented correctly");
+			}
+		}
 	}
 
 	@Test

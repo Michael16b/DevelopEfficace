@@ -1,0 +1,29 @@
+
+E
+java:S1066)"/Merge this if statement with the enclosing one.(•ø“
+E
+java:S1066."/Merge this if statement with the enclosing one.(³§Ê
+E
+java:S1066t"/Merge this if statement with the enclosing one.(ƒ·ˆ¸
+˜
+java:S1186’"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğÛıÿ
+m
+java:S3776 "RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(¹•Õïùÿÿÿÿ
+m
+java:S3776["RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ĞöÆúûÿÿÿÿ
+R
+java:S1854‚";Remove this useless assignment to local variable "theNode".(Ò£›
+R
+java:S1854";Remove this useless assignment to local variable "theNode".(²Ô´
+C
+java:S1481",Remove this unused "theNode" local variable.(²Ô´
+o
+java:S2975‡"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(“ôõ³ıÿÿÿÿ
+d
+java:S1182‡"HUse super.clone() to create and seed the cloned instance to be returned.(“ôõ³ıÿÿÿÿ
+o
+java:S2975²"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(úËÇ’øÿÿÿÿ
+d
+java:S1182²"HUse super.clone() to create and seed the cloned instance to be returned.(úËÇ’øÿÿÿÿ
+D
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›

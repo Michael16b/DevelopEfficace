@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.Objects;
+
 public class BinaryTreeTableTest {
 	static BinaryTreeTable<Integer, String> tree = new BinaryTreeTable<>();
 
@@ -17,7 +20,9 @@ public class BinaryTreeTableTest {
 	public void testBinaryTreeTable() {
 		// Sonarlint -> Instance methods should not write to "static" fields (java:S2696)
 		tree = new BinaryTreeTable<>();
-		//fail("Not yet implemented");
+		if (tree.select(null) != null) {
+			fail("testBinaryTreeTable isn't implemented correctly");
+		}
 	}
 
 	@Test
@@ -27,7 +32,7 @@ public class BinaryTreeTableTest {
 			tree.insert(i, "test"+i);
 		}
 		for (int i = 0; i < 10; i++) {
-			if (tree.select(i) != "test"+i) {
+			if (!tree.select(i).equals("test" + i)) {
 				fail("testSelect isn't implemented correctly");
 			}
 		}
@@ -48,7 +53,11 @@ public class BinaryTreeTableTest {
 
 	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		tree = new BinaryTreeTable<>();
+		for (int i = 0; i < 10; i++) {
+			tree.insert(i, "test" + i);
+		}
+		//fail("treeDelete isn't implemented correctly");
 	}
 
 	@Test

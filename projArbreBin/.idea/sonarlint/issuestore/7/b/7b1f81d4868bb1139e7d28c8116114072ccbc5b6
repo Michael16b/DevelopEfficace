@@ -1,0 +1,17 @@
+
+[	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¨¶˜ß
+‚
+java:S1130"lRemove the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.(¨¶˜ß
+L
+java:S2696"6Make the enclosing method "static" or remove this set.(ÀŽ »
+L
+java:S2696"6Make the enclosing method "static" or remove this set.(ÀŽ »
+L
+java:S2696+"6Make the enclosing method "static" or remove this set.(ÀŽ »
+L
+java:S26968"6Make the enclosing method "static" or remove this set.(ÀŽ »
+V	java:S125<"<This block of commented-out lines of code should be removed.(¶—•­ÿÿÿÿÿ
+D
+java:S1128".Remove this unused import 'java.util.Objects'.(¼¸õ›
+A
+java:S5960"+Remove this assertion from production code.(ˆò«É

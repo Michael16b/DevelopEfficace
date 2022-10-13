@@ -91,6 +91,7 @@ public class BinaryTreeTableTest {
 		}
 		BinaryTreeTable<Integer, String> tree2 = tree.clone();
 		System.out.println(tree2);
+
 		for (int i = 0; i < 10; i++) {
 			if (!tree2.select(i).equals(tree.select(i))) {
 				fail("testClone isn't implemented correctly");

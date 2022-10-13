@@ -66,7 +66,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
     	}
     	return ans;
     }
-    
+
 	private Node seekFather (E key) {
         Node theNode = root;
         while( (theNode.rSon != null || theNode.lSon != null) && theNode.key != key) {
@@ -88,7 +88,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
             theNode.theValue = null;
         }
         return theNode;
-    } 
+    }
 
 
     @Override
@@ -196,33 +196,41 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
         if (nodeToCopy != null) {
             Node newNode = new Node(nodeToCopy.theValue, nodeToCopy.key);
             newNode.father = newFather;
-            if (nodeToCopy.father != null) {
-                if (nodeToCopy.father.lSon == nodeToCopy) {
-                    newFather.lSon = newNode;
-                } else {
-                    newFather.rSon = newNode;
+            if (nodeToCopy.theValue != null && newFather != null) {
+                if (nodeToCopy.lSon != null ) {
+                    newNode.lSon =  new Node(nodeToCopy.lSon.theValue, nodeToCopy.lSon.key);
+                } else if (nodeToCopy.rSon != null) {
+                    newNode.rSon = new Node(nodeToCopy.rSon.theValue, nodeToCopy.rSon.key);
                 }
             }
             if (nodeToCopy.lSon != null || nodeToCopy.rSon != null) {
                 computeClone(nodeToCopy.lSon, newNode);
                 computeClone(nodeToCopy.rSon, newNode);
+            } else {
+                if (newFather.lSon != null) {
+                    newFather.lSon = newNode;
+                } else {
+                    newFather.rSon = newNode;
+                }
+                computeClone(null, newNode);
+
             }
         }
 
     }
-    
+
     public void showTree() {
-    	
+
     }
-    
-    
+
+
    public class Node {
         // Attributs
-        private Node lSon ; 
-        private Node rSon ; 
-        private Node father ; 
-        private T theValue ; 
-        private E key ; 
+        private Node lSon ;
+        private Node rSon ;
+        private Node father ;
+        private T theValue ;
+        private E key ;
 
 
         public Node (T theValue, E key) {

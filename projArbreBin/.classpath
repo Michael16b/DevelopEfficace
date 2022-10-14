@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/org/testng/testng/7.1.0/testng-7.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/junit/junit/4.13.1/junit-4.13.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/junit/junit/4.13.1/junit-4.13.1.jar"/>
 	<classpathentry kind="output" path="out/production/projArbreBin"/>
 </classpath>

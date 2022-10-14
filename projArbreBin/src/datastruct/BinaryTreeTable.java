@@ -12,7 +12,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
     @Override
     public T select(E key) {
         if(key == null) {
-            throw new IllegalArgumentException("La clï¿½e est null");
+            throw new IllegalArgumentException("La clef est null");
         }
         Node n = findNode(root,key);
         T ret;
@@ -26,7 +26,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
 
     private Node findNode ( Node theNode, E key ) {
         if(key == null) {
-            throw new IllegalArgumentException("La clï¿½e est null");
+            throw new IllegalArgumentException("La clef est null");
         }
         Node n = null;
         if(theNode != null) {
@@ -46,7 +46,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
     @Override
     public boolean insert(E key, T data) throws IllegalArgumentException {
         if(key == null) {
-            throw new IllegalArgumentException("La cle est null");
+            throw new IllegalArgumentException("La clef est null");
         }
     	boolean ans = false;
     	if (root == null) {
@@ -187,42 +187,30 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
         return ret ;
     }
 
-    // Utilisez computeClone() pour copier les noeuds de l'arbre
     public BinaryTreeTable<E, T> clone() {
         this.computeClone(this.root,this.root.father);
         return this;
     }
 
 	private void computeClone(Node nodeToCopy, Node newFather) {
-        if( nodeToCopy != null) {
-
-            //create a new node
-            Node newNode = nodeToCopy.clone();
-            //set the new father
+        if (nodeToCopy != null) {
+            Node newNode = new Node(nodeToCopy.theValue,nodeToCopy.key);
             newNode.father = newFather;
-
-            //check if the node is the root
-            if( nodeToCopy == this.root) {
-                this.root = newNode;
+            if (newFather != null) {
+                if (newFather.key.compareTo(newNode.key) < 0) {
+                    newFather.rSon = newNode;
+                } else {
+                    newFather.lSon = newNode;
+                }
             }
-            //check if the node is the leftSon of the father
-            else if( nodeToCopy == nodeToCopy.father.lSon) {
-                newNode.father.lSon = newNode;
-            }
-            //check if the node is the rightSon of the father
-            else if( nodeToCopy == nodeToCopy.father.rSon) {
-                newNode.father.rSon = newNode;
-            }
-
-            //go to the left
             computeClone(nodeToCopy.lSon,newNode);
-            //go to the right
             computeClone(nodeToCopy.rSon,newNode);
         }
     }
 
     public void showTree() {
-        TreeDraw<E, T> treeD = new TreeDraw<E, T>(this.root);
+        BinaryTreeTable<E, T> treeClone = this.clone();
+        TreeDraw<E, T> treeD = new TreeDraw<E, T>(treeClone.root);
         treeD.drawTree();
     }
 

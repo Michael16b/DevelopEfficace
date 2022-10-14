@@ -35,6 +35,12 @@ public class BinaryTreeTableTest {
 				fail("testSelect isn't implemented correctly");
 			}
 		}
+		try {
+			tree.select(null);
+			fail("testSelect isn't implemented correctly");
+		} catch (IllegalArgumentException e) {
+			// OK
+		}
 		System.out.println("testSelect : OK");
 	}
 
@@ -99,7 +105,6 @@ public class BinaryTreeTableTest {
 			tree.insert(i, "test" + i);
 		}
 		BinaryTreeTable<Integer, String> tree2 = tree.clone();
-		System.out.println(tree2);
 
 		for (int i = 0; i < 10; i++) {
 			if (!tree2.select(i).equals(tree.select(i))) {

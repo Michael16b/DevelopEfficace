@@ -1,7 +1,6 @@
-package ihm;
+package datastruct;
 
 import javax.swing.*;
-import datastruct.BinaryTreeTable;
 import java.awt.*;
 
 public class TreeDraw<E extends Comparable<E>, T> extends JFrame {

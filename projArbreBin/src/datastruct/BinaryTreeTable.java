@@ -64,6 +64,10 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
                 ans = true;
             }
     	}
+        if(ans && root != null) {
+            this.balanceTheTree(root);
+        }
+
     	return ans;
     }
 
@@ -123,18 +127,7 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
                 }
 
             } else {
-                Node theNode2 = theNode.rSon;
-                while (theNode2.lSon != null) {
-                    theNode2 = theNode2.lSon;
-                }
-                theNode.key = theNode2.key;
-                theNode.theValue = theNode2.theValue;
-                if (theNode2.father.lSon == theNode2) {
-                    theNode2.father.lSon = theNode2.rSon;
-                } else {
-                    theNode2.father.rSon = theNode2.rSon;
-                }
-                result = true;
+                result = isResult(theNode);
             }
         } else {
             if (root.lSon == null && root.rSon == null) {
@@ -148,20 +141,29 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
                 }
                 result = true;
             } else {
-                Node theNode2 = root.rSon;
-                while (theNode2.lSon != null) {
-                    theNode2 = theNode2.lSon;
-                }
-                root.key = theNode2.key;
-                root.theValue = theNode2.theValue;
-                if (theNode2.father.lSon == theNode2) {
-                    theNode2.father.lSon = theNode2.rSon;
-                } else {
-                    theNode2.father.rSon = theNode2.rSon;
-                }
-                result = true;
+                result = isResult(root);
             }
         }
+        if(result && root != null) {
+            this.balanceTheTree(root);
+        }
+        return result;
+    }
+
+    private boolean isResult(Node theNode) {
+        boolean result;
+        Node theNode2 = theNode.rSon;
+        while (theNode2.lSon != null) {
+            theNode2 = theNode2.lSon;
+        }
+        theNode.key = theNode2.key;
+        theNode.theValue = theNode2.theValue;
+        if (theNode2.father.lSon == theNode2) {
+            theNode2.father.lSon = theNode2.rSon;
+        } else {
+            theNode2.father.rSon = theNode2.rSon;
+        }
+        result = true;
         return result;
     }
 
@@ -187,40 +189,150 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
 
     // Utilisez computeClone() pour copier les noeuds de l'arbre
     public BinaryTreeTable<E, T> clone() {
-        BinaryTreeTable<E, T> ret = new BinaryTreeTable<E, T>();
-        computeClone(this.root, ret.root);
-        return ret;
+        this.computeClone(this.root,this.root.father);
+        return this;
     }
 
 	private void computeClone(Node nodeToCopy, Node newFather) {
-        if (nodeToCopy != null) {
-            Node newNode = new Node(nodeToCopy.theValue, nodeToCopy.key);
-            newNode.father = newFather;
-            if (nodeToCopy.theValue != null && newFather != null) {
-                if (nodeToCopy.lSon != null ) {
-                    newNode.lSon =  new Node(nodeToCopy.lSon.theValue, nodeToCopy.lSon.key);
-                } else if (nodeToCopy.rSon != null) {
-                    newNode.rSon = new Node(nodeToCopy.rSon.theValue, nodeToCopy.rSon.key);
-                }
-            }
-            if (nodeToCopy.lSon != null || nodeToCopy.rSon != null) {
-                computeClone(nodeToCopy.lSon, newNode);
-                computeClone(nodeToCopy.rSon, newNode);
-            } else {
-                if (newFather.lSon != null) {
-                    newFather.lSon = newNode;
-                } else {
-                    newFather.rSon = newNode;
-                }
-                computeClone(null, newNode);
+        if( nodeToCopy != null) {
 
+            //create a new node
+            Node newNode = nodeToCopy.clone();
+            //set the new father
+            newNode.father = newFather;
+
+            //check if the node is the root
+            if( nodeToCopy == this.root) {
+                this.root = newNode;
             }
+            //check if the node is the leftSon of the father
+            else if( nodeToCopy == nodeToCopy.father.lSon) {
+                newNode.father.lSon = newNode;
+            }
+            //check if the node is the rightSon of the father
+            else if( nodeToCopy == nodeToCopy.father.rSon) {
+                newNode.father.rSon = newNode;
+            }
+
+            //go to the left
+            computeClone(nodeToCopy.lSon,newNode);
+            //go to the right
+            computeClone(nodeToCopy.rSon,newNode);
+        }
+    }
+
+    public void showTree() {
+        TreeDraw<E, T> treeD = new TreeDraw<E, T>(this.root);
+        treeD.drawTree();
+    }
+
+
+    //------------------------
+
+    //------------------------
+    private int computeH ( Node theN ) {
+        int hLNode, hRNode, hNode ;
+        if ( theN != null ) {
+            hLNode = computeH ( theN.lSon ) ;
+            hRNode = computeH ( theN.rSon ) ;
+            hNode = 1 + Math.max ( hLNode, hRNode ) ;
+        }
+        else hNode = 0 ;
+        return hNode ;
+
+    }
+    private void rightRotation ( Node theN ){
+        Node theN2 = theN.lSon;
+        theN.lSon = theN2.rSon;
+        if (theN2.rSon != null) {
+            theN2.rSon.father = theN;
+        }
+        theN2.rSon = theN;
+        theN2.father = theN.father;
+        theN.father = theN2;
+        if (theN2.father != null) {
+            if (theN2.father.lSon == theN) {
+                theN2.father.lSon = theN2;
+            } else {
+                theN2.father.rSon = theN2;
+            }
+        } else {
+            this.root = theN2;
         }
 
     }
 
-    public void showTree() {
+    //------------------------
 
+    //------------------------
+    private void leftRotation ( Node theN ){
+        //check if the node is the root
+        if( theN == this.root) {
+            this.root = theN.rSon;
+        }
+        //check if the node is the leftSon of the father
+        else if( theN == theN.father.lSon) {
+            theN.father.lSon = theN.rSon;
+        }
+        //check if the node is the rightSon of the father
+        else if( theN == theN.father.rSon) {
+            theN.father.rSon = theN.rSon;
+        }
+        //check if the node is the leftSon of the father
+        if( theN.rSon != null) {
+            theN.rSon.father = theN.father;
+        }
+        theN.father = theN.rSon;
+        theN.rSon = theN.father.lSon;
+        if(theN.rSon != null) {
+            theN.rSon.father = theN;
+        }
+        theN.father.lSon = theN;
+
+    }
+
+    //------------------------
+
+    //------------------------
+    private void leftRightRotation (Node theN){
+        leftRotation(theN.lSon);
+        rightRotation(theN);
+    }
+    //------------------------
+
+    private void rightLeftRotation (Node theN){
+        rightRotation(theN.rSon);
+        leftRotation(theN);
+
+    }
+
+    //------------------------
+    private void balanceTheTree ( Node theN ) {
+        if ( theN != null ) {
+            int hL = computeH(theN.lSon);
+            int hR = computeH(theN.rSon);
+            if ( hL - hR > 1 ) {
+                int hLL = computeH(theN.lSon.lSon);
+                int hLR = computeH(theN.lSon.rSon);
+                if ( hLL >= hLR ) {
+                    rightRotation(theN);
+                }
+                else {
+                    leftRightRotation(theN);
+                }
+            }
+            else if ( hR - hL > 1 ) {
+                int hRL = computeH(theN.rSon.lSon);
+                int hRR = computeH(theN.rSon.rSon);
+                if ( hRR >= hRL ) {
+                    leftRotation(theN);
+                }
+                else {
+                    rightLeftRotation(theN);
+                }
+            }
+            balanceTheTree(theN.father);
+        }
     }
 
 
@@ -253,9 +365,9 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
 
         public Node clone() {
             Node node = new Node(this.theValue, this.key);
-            node.father = this.father;
-            node.lSon = this.lSon;
-            node.rSon = this.rSon;
+            node.father = null;
+            node.lSon = null;
+            node.rSon = null;
             return node;
         }
 

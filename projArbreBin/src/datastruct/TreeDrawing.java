@@ -1,4 +1,4 @@
-package ihm;
+package datastruct;
 
 import java.awt.Canvas;
 import java.awt.Color;

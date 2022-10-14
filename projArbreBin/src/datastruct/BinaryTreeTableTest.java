@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Objects;
-
 public class BinaryTreeTableTest {
 	static BinaryTreeTable<Integer, String> tree = new BinaryTreeTable<>();
 

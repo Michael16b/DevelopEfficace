@@ -248,6 +248,25 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
             theN2.rSon.father = theN;
         }
         theN2.rSon = theN;
+        ChangeNodeRotation(theN, theN2);
+
+    }
+
+    //------------------------
+
+    //------------------------
+    private void leftRotation ( Node theN ){
+        Node theN2 = theN.rSon;
+        theN.rSon = theN2.lSon;
+        if (theN2.lSon != null) {
+            theN2.lSon.father = theN;
+        }
+        theN2.lSon = theN;
+        ChangeNodeRotation(theN, theN2);
+
+    }
+
+    private void ChangeNodeRotation(Node theN, Node theN2) {
         theN2.father = theN.father;
         theN.father = theN2;
         if (theN2.father != null) {
@@ -259,36 +278,6 @@ public class BinaryTreeTable<E extends Comparable<E>, T> implements Table<E, T> 
         } else {
             this.root = theN2;
         }
-
-    }
-
-    //------------------------
-
-    //------------------------
-    private void leftRotation ( Node theN ){
-        //check if the node is the root
-        if( theN == this.root) {
-            this.root = theN.rSon;
-        }
-        //check if the node is the leftSon of the father
-        else if( theN == theN.father.lSon) {
-            theN.father.lSon = theN.rSon;
-        }
-        //check if the node is the rightSon of the father
-        else if( theN == theN.father.rSon) {
-            theN.father.rSon = theN.rSon;
-        }
-        //check if the node is the leftSon of the father
-        if( theN.rSon != null) {
-            theN.rSon.father = theN.father;
-        }
-        theN.father = theN.rSon;
-        theN.rSon = theN.father.lSon;
-        if(theN.rSon != null) {
-            theN.rSon.father = theN;
-        }
-        theN.father.lSon = theN;
-
     }
 
     //------------------------
